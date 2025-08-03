@@ -88,6 +88,7 @@
 4. `api/contact.ts` - Backend API (new file)
 5. `package.json` - Added Vercel dependency
 6. `public/assets/profile-photo.jpg` - Profile photo (new file)
+7. `vercel.json` - Fixed function runtime configuration
 
 ## 🔧 Manual Steps Required
 
@@ -101,6 +102,7 @@
 - ✅ Backend API created (basic version)
 - ✅ All links and redirects working
 - ✅ Contact form works in both development and production
+- ✅ Vercel configuration fixed for deployment
 - ⚠️ Email service needs to be configured for production
 
 ## 🚨 Important Notes
