@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { Download, Mail, Linkedin, Github, MapPin, Phone, Home, User, FolderOpen, MessageSquare, Award, Code, Send, ArrowUp } from 'lucide-react';
+import { Download, Mail, Linkedin, Github, MapPin, Phone, Home, User, FolderOpen, MessageSquare, Award, Code, Send, ArrowUp, CheckCircle } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Card, CardContent } from './components/ui/card';
 import { Badge } from './components/ui/badge';
