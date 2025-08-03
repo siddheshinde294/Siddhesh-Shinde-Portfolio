@@ -121,6 +121,8 @@ export default function App() {
       }
       
       // In production, send to Vercel API
+      console.log('Sending request to API with data:', contactForm);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -129,7 +131,13 @@ export default function App() {
         body: JSON.stringify(contactForm),
       });
 
-      if (response.ok) {
+      console.log('API response status:', response.status);
+      console.log('API response headers:', Object.fromEntries(response.headers.entries()));
+
+      const data = await response.json();
+      console.log('API response data:', data);
+
+      if (response.ok && data.success) {
         // Reset form
         setContactForm({
           name: '',
@@ -142,11 +150,11 @@ export default function App() {
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
       } else {
-        throw new Error('Failed to send message');
+        throw new Error(data.message || 'Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again.');
+      alert(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
     }
   };
 
