@@ -40,11 +40,11 @@ export function CertificationsPage() {
 
   const achievements = [
     {
-      title: "DRDO Innovation Marathon",
+      title: "Innovation Marathon",
       category: "Competition",
       achievement: "Semi-Finalist",
       date: "2024",
-      description: "Reached semi-finals in the prestigious DRDO Innovation Marathon, competing with innovative technology solutions for defense applications.",
+      description: "Reached semi-finals in the prestigious Innovation Marathon, competing with innovative technology solutions.",
       impact: "Top 50 teams nationwide"
     },
     {
@@ -260,7 +260,7 @@ export function CertificationsPage() {
                           <Star className="w-4 h-4 mr-1" />
                           {achievement.impact}
                         </div>
-                        {achievement.title === "DRDO Innovation Marathon" && (
+                        {achievement.title === "Innovation Marathon" && (
                           <Button 
                             size="sm" 
                             className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-3 py-1 text-xs"
@@ -280,16 +280,7 @@ export function CertificationsPage() {
                             View Certificate
                           </Button>
                         )}
-                        {achievement.title === "College Academic Excellence" && (
-                          <Button 
-                            size="sm" 
-                            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-3 py-1 text-xs"
-                            onClick={() => window.open('https://drive.google.com/file/d/13LzR3_83lWhNJlHr2T_NoY5aMnlj5UDr/view?usp=drive_link', '_blank')}
-                          >
-                            <ExternalLink className="w-3 h-3 mr-1" />
-                            View Certificate
-                          </Button>
-                        )}
+
                       </div>
                     </CardContent>
                   </Card>
