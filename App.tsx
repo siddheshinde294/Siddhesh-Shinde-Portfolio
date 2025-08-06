@@ -56,6 +56,30 @@ export default function App() {
     setClickedItem(itemId);
     setTimeout(() => setClickedItem(null), 300);
     
+    if (itemId === 'contact') {
+      // Special handling for contact button - prevent page switching interference
+      if (currentPage !== 'home') {
+        // Coming from another page - switch to home first, then scroll
+        setCurrentPage('home');
+        setActiveSection('contact');
+        // Wait for page change, then scroll
+        setTimeout(() => {
+          const contactElement = document.getElementById('contact');
+          if (contactElement) {
+            contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 600);
+      } else {
+        // Already on home page - just scroll directly
+        setActiveSection('contact');
+        const contactElement = document.getElementById('contact');
+        if (contactElement) {
+          contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+      return;
+    }
+    
     if (itemId === 'home') {
       // Always go to home page and scroll to top
       setCurrentPage('home');
@@ -66,11 +90,6 @@ export default function App() {
       setActiveSection(itemId);
       // Scroll to top of the new page
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (itemId === 'contact') {
-      // For contact, always go to home page and scroll to contact section
-      setCurrentPage('home');
-      setActiveSection('contact');
-      setTimeout(() => scrollToSection('contact'), 100);
     } else {
       // For other scroll items
       if (currentPage !== 'home') {
@@ -123,41 +142,7 @@ export default function App() {
       const autoReplyTemplateId = EMAILJS_CONFIG.AUTO_REPLY_TEMPLATE_ID;
       const publicKey = EMAILJS_CONFIG.PUBLIC_KEY;
 
-      // Check if credentials are still placeholder values
-      if (serviceId.includes('YOUR_') || notificationTemplateId.includes('YOUR_') || 
-          autoReplyTemplateId.includes('YOUR_') || publicKey.includes('YOUR_')) {
-        console.log('EmailJS not configured yet - showing demo mode');
-        
-        // Demo mode - just show success and log form data
-        console.log('Contact form submission (demo mode):', contactForm);
-        
-        // Reset form
-        setContactForm({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        
-        // Show success message
-        setShowSuccessMessage(true);
-        setTimeout(() => setShowSuccessMessage(false), 3000);
-        
-        // Show info about EmailJS setup
-        setTimeout(() => {
-          alert('EmailJS not configured yet. Please follow the setup guide in EMAILJS_SETUP.md to enable actual email sending.');
-        }, 1000);
-        
-        return;
-      }
 
-      console.log('EmailJS Config:', {
-        serviceId,
-        notificationTemplateId,
-        autoReplyTemplateId,
-        publicKey: publicKey.substring(0, 10) + '...' // Log partial key for security
-      });
 
       // Prepare notification email parameters (to you)
       const notificationParams = {
@@ -173,49 +158,42 @@ export default function App() {
       // Prepare auto-reply email parameters (to sender)
       const autoReplyParams = {
         to_name: contactForm.name,
-        to_email: contactForm.email,
-        sender_name: 'Siddhesh Shinde',
-        sender_email: 'siddheshinde294@gmail.com',
+        to_email: contactForm.email, // Add recipient email address
         original_subject: contactForm.subject,
         original_message: contactForm.message,
+        sender_email: 'siddheshinde294@gmail.com',
+        sender_name: 'Siddhesh Shinde',
       };
 
-      console.log('Sending notification email via EmailJS with params:', notificationParams);
-      console.log('Sending auto-reply email via EmailJS with params:', autoReplyParams);
 
-      // First, try sending just the notification email to test
-      console.log('Attempting to send notification email...');
-      const notificationResponse = await emailjs.send(serviceId, notificationTemplateId, notificationParams, publicKey);
-      console.log('Notification email response:', notificationResponse);
-
-      // If notification succeeds, try auto-reply
-      if (notificationResponse.status === 200) {
-        console.log('Notification email sent successfully, now sending auto-reply...');
-        const autoReplyResponse = await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey);
-        console.log('Auto-reply email response:', autoReplyResponse);
-        
-        if (autoReplyResponse.status === 200) {
-          // Both emails sent successfully
-          console.log('Both emails sent successfully!');
-          // Reset form
-          setContactForm({
-            name: '',
-            email: '',
-            phone: '',
-            subject: '',
-            message: ''
-          });
-          
-          // Show success message
-          setShowSuccessMessage(true);
-          setTimeout(() => setShowSuccessMessage(false), 3000);
-        } else {
-          console.error('Auto-reply failed but notification succeeded');
-          throw new Error('Auto-reply email failed to send');
-        }
-      } else {
-        throw new Error('Notification email failed to send');
+      
+      try {
+        await emailjs.send(serviceId, notificationTemplateId, notificationParams, publicKey);
+      } catch (notificationError) {
+        throw new Error(`Notification email failed: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`);
       }
+
+      // Send auto-reply email
+      try {
+        await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey);
+      } catch (autoReplyError) {
+        // Auto-reply failed but notification succeeded - continue without error
+      }
+      
+
+      
+      // Reset form
+      setContactForm({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Show success message
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (error) {
       console.error('Error sending emails:', error);
       console.error('Error details:', {
@@ -223,7 +201,21 @@ export default function App() {
         stack: error instanceof Error ? error.stack : 'No stack trace',
         name: error instanceof Error ? error.name : 'Unknown error type'
       });
-      alert('Failed to send message. Please try again or contact me directly at siddheshinde294@gmail.com');
+      
+      // More specific error message
+      let errorMessage = 'Failed to send message. Please try again or contact me directly at siddheshinde294@gmail.com';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('template')) {
+          errorMessage = 'Email template error. Please check your EmailJS template configuration.';
+        } else if (error.message.includes('service')) {
+          errorMessage = 'Email service error. Please check your EmailJS service configuration.';
+        } else if (error.message.includes('key') || error.message.includes('auth')) {
+          errorMessage = 'Authentication error. Please check your EmailJS API key.';
+        }
+      }
+      
+      alert(errorMessage);
     }
   };
 
@@ -236,6 +228,9 @@ export default function App() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Initialize EmailJS
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
     
     // Hide landing animation after 3 seconds
     const timer = setTimeout(() => {
@@ -250,22 +245,6 @@ export default function App() {
     const handleScroll = () => {
       // Show/hide scroll to top button
       setShowScrollTop(window.scrollY > 300);
-
-      if (currentPage === 'home') {
-        const sections = ['home', 'contact'];
-        const scrollPosition = window.scrollY + 100;
-
-        for (const sectionId of sections) {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const { offsetTop, offsetHeight } = element;
-            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-              setActiveSection(sectionId);
-              break;
-            }
-          }
-        }
-      }
     };
 
     window.addEventListener('mousemove', moveCursor);
