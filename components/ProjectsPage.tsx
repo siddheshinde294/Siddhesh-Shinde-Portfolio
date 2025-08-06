@@ -153,7 +153,7 @@ export function ProjectsPage() {
           </div>
 
           {/* Project Statistics */}
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {projectStats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
@@ -215,12 +215,12 @@ export function ProjectsPage() {
               >
                 <Card className={`bg-black/40 border-purple-500/20 backdrop-blur-lg hover:border-purple-400/40 transition-all duration-300 ${project.featured ? 'ring-2 ring-purple-400/30' : ''} relative overflow-hidden group`}>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <CardContent className="p-8 relative z-10">
-                    <div className="grid lg:grid-cols-3 gap-8">
+                  <CardContent className="p-4 md:p-8 relative z-10">
+                    <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
                       {/* Project Info */}
-                      <div className="lg:col-span-2 space-y-6">
+                      <div className="lg:col-span-2 space-y-4 md:space-y-6">
                         <div>
-                          <div className="flex items-start justify-between mb-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-4">
                             <div>
                               {project.featured && (
                                 <Badge className="mb-3 bg-gradient-to-r from-purple-400 to-pink-400 text-white">
@@ -230,7 +230,7 @@ export function ProjectsPage() {
                               <h2 className="text-2xl font-bold text-white mb-2">{project.title}</h2>
                               <p className="text-gray-300 leading-relaxed">{project.description}</p>
                             </div>
-                            <div className="flex items-center space-x-2 ml-4">
+                            <div className="flex flex-wrap items-center gap-2 sm:ml-4">
                               <Badge 
                                 variant="outline" 
                                 className="bg-green-500/10 border-green-400/50 text-green-300"
@@ -261,7 +261,7 @@ export function ProjectsPage() {
                             </div>
                           </div>
 
-                          <div className="flex space-x-4">
+                          <div className="flex flex-wrap gap-3">
                             <Button 
                               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/25"
                               onClick={() => window.open(project.demoUrl, '_blank')}
@@ -288,11 +288,11 @@ export function ProjectsPage() {
                       </div>
 
                       {/* Project Details */}
-                      <div className="space-y-6">
+                      <div className="space-y-4 md:space-y-6">
                         <motion.div whileHover={{ scale: 1.02 }}>
                           <Card className="bg-purple-900/20 border-purple-400/20 relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <CardContent className="p-6 relative z-10">
+                            <CardContent className="p-4 md:p-6 relative z-10">
                               <h3 className="text-lg font-semibold text-purple-300 mb-3">Key Features</h3>
                               <div className="space-y-2">
                                 {project.features.slice(0, 4).map((feature, i) => (
@@ -312,7 +312,7 @@ export function ProjectsPage() {
                         <motion.div whileHover={{ scale: 1.02 }}>
                           <Card className="bg-blue-900/20 border-blue-400/20 relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <CardContent className="p-6 relative z-10">
+                            <CardContent className="p-4 md:p-6 relative z-10">
                               <h3 className="text-lg font-semibold text-blue-300 mb-3">Technical Challenges</h3>
                               <div className="space-y-2">
                                 {project.challenges.map((challenge, i) => (
@@ -343,7 +343,7 @@ export function ProjectsPage() {
                   I'm always excited to work on innovative projects and explore new technologies. 
                   Let's discuss how we can bring your ideas to life!
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-3">
                   <Button 
                     className="bg-[#0077B5] hover:bg-[#005885] text-white border-0 shadow-lg shadow-blue-500/25"
                     onClick={() => window.open('https://www.linkedin.com/in/siddheshinde/', '_blank')}

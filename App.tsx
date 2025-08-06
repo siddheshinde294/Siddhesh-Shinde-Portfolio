@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { Download, Mail, Linkedin, Github, MapPin, Phone, Home, User, FolderOpen, MessageSquare, Award, Code, Send, ArrowUp, CheckCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { Button } from './components/ui/button';
 import { Card, CardContent } from './components/ui/card';
 import { Badge } from './components/ui/badge';
@@ -14,6 +15,7 @@ import { AboutPage } from './components/AboutPage';
 import { SkillsPage } from './components/SkillsPage';
 import { CertificationsPage } from './components/CertificationsPage';
 import { ProjectsPage } from './components/ProjectsPage';
+import { EMAILJS_CONFIG } from './config/emailjs';
 
 type PageType = 'home' | 'about' | 'skills' | 'certifications' | 'projects';
 
@@ -64,8 +66,13 @@ export default function App() {
       setActiveSection(itemId);
       // Scroll to top of the new page
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (itemId === 'contact') {
+      // For contact, always go to home page and scroll to contact section
+      setCurrentPage('home');
+      setActiveSection('contact');
+      setTimeout(() => scrollToSection('contact'), 100);
     } else {
-      // Scroll to contact section if on home page
+      // For other scroll items
       if (currentPage !== 'home') {
         setCurrentPage('home');
         setTimeout(() => scrollToSection(itemId), 100);
@@ -96,74 +103,71 @@ export default function App() {
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate required fields
+    if (!contactForm.name || !contactForm.email || !contactForm.subject || !contactForm.message) {
+      alert('Please fill in all required fields (Name, Email, Subject, Message)');
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(contactForm.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
     try {
-      // Check if we're in development or production
-      const isDevelopment = import.meta.env.DEV;
-      
-      if (isDevelopment) {
-        // In development, just simulate success
-        console.log('Contact form submission (development):', contactForm);
-        
-        // Reset form
-        setContactForm({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        
-        // Show success message
-        setShowSuccessMessage(true);
-        setTimeout(() => setShowSuccessMessage(false), 3000);
-        
-        return;
-      }
-      
-      // In production, send to Vercel API
-      console.log('Sending request to API with data:', contactForm);
-      
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(contactForm),
-        });
+      // EmailJS configuration
+      const serviceId = EMAILJS_CONFIG.SERVICE_ID;
+      const notificationTemplateId = EMAILJS_CONFIG.TEMPLATE_ID;
+      const autoReplyTemplateId = EMAILJS_CONFIG.AUTO_REPLY_TEMPLATE_ID;
+      const publicKey = EMAILJS_CONFIG.PUBLIC_KEY;
 
-        console.log('API response status:', response.status);
-        console.log('API response headers:', Object.fromEntries(response.headers.entries()));
+      console.log('EmailJS Config:', {
+        serviceId,
+        notificationTemplateId,
+        autoReplyTemplateId,
+        publicKey: publicKey.substring(0, 10) + '...' // Log partial key for security
+      });
 
-        let data;
-        try {
-          data = await response.json();
-          console.log('API response data:', data);
-        } catch (jsonError) {
-          console.error('Failed to parse JSON response:', jsonError);
-          const responseText = await response.text();
-          console.log('Raw response text:', responseText);
-          
-          // If the API route doesn't exist, fall back to development mode behavior
-          if (response.status === 404 || responseText.includes('404') || responseText.includes('Not Found')) {
-            console.log('API route not found, falling back to development mode');
-            // Simulate success like in development
-            setContactForm({
-              name: '',
-              email: '',
-              phone: '',
-              subject: '',
-              message: ''
-            });
-            setShowSuccessMessage(true);
-            setTimeout(() => setShowSuccessMessage(false), 3000);
-            return;
-          }
-          
-          throw new Error('Server returned invalid response format');
-        }
+      // Prepare notification email parameters (to you)
+      const notificationParams = {
+        from_name: contactForm.name,
+        from_email: contactForm.email,
+        from_phone: contactForm.phone || 'Not provided',
+        subject: contactForm.subject,
+        message: contactForm.message,
+        to_name: 'Siddhesh Shinde', // Your name
+        reply_to: contactForm.email,
+      };
 
-        if (response.ok && data.success) {
+      // Prepare auto-reply email parameters (to sender)
+      const autoReplyParams = {
+        to_name: contactForm.name,
+        to_email: contactForm.email,
+        sender_name: 'Siddhesh Shinde',
+        sender_email: 'siddheshinde294@gmail.com',
+        original_subject: contactForm.subject,
+        original_message: contactForm.message,
+      };
+
+      console.log('Sending notification email via EmailJS with params:', notificationParams);
+      console.log('Sending auto-reply email via EmailJS with params:', autoReplyParams);
+
+      // First, try sending just the notification email to test
+      console.log('Attempting to send notification email...');
+      const notificationResponse = await emailjs.send(serviceId, notificationTemplateId, notificationParams, publicKey);
+      console.log('Notification email response:', notificationResponse);
+
+      // If notification succeeds, try auto-reply
+      if (notificationResponse.status === 200) {
+        console.log('Notification email sent successfully, now sending auto-reply...');
+        const autoReplyResponse = await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey);
+        console.log('Auto-reply email response:', autoReplyResponse);
+        
+        if (autoReplyResponse.status === 200) {
+          // Both emails sent successfully
+          console.log('Both emails sent successfully!');
           // Reset form
           setContactForm({
             name: '',
@@ -172,29 +176,25 @@ export default function App() {
             subject: '',
             message: ''
           });
+          
           // Show success message
           setShowSuccessMessage(true);
           setTimeout(() => setShowSuccessMessage(false), 3000);
         } else {
-          throw new Error(data.message || 'Failed to send message');
+          console.error('Auto-reply failed but notification succeeded');
+          throw new Error('Auto-reply email failed to send');
         }
-      } catch (fetchError) {
-        console.error('Fetch error:', fetchError);
-        // If fetch fails completely, fall back to development mode behavior
-        console.log('Fetch failed, falling back to development mode');
-        setContactForm({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        setShowSuccessMessage(true);
-        setTimeout(() => setShowSuccessMessage(false), 3000);
+      } else {
+        throw new Error('Notification email failed to send');
       }
     } catch (error) {
-      console.error('Error sending message:', error);
-      alert(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+      console.error('Error sending emails:', error);
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack trace',
+        name: error instanceof Error ? error.name : 'Unknown error type'
+      });
+      alert('Failed to send message. Please try again or contact me directly at siddheshinde294@gmail.com');
     }
   };
 
@@ -458,12 +458,12 @@ export default function App() {
                 <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
                   <div className="container mx-auto px-6">
                     {/* Mobile Layout: Photo First */}
-                    <div className="lg:hidden flex flex-col items-center space-y-8">
+                    <div className="lg:hidden flex flex-col items-start space-y-8">
                       <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="flex justify-center"
+                        className="flex justify-start"
                       >
                         <div className="relative">
                           <div className="w-64 h-64 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 p-1">
@@ -484,7 +484,7 @@ export default function App() {
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-center space-y-6"
+                        className="text-left space-y-6"
                       >
                         <div className="space-y-4">
                           <p className="text-purple-400 text-lg">Hello! I Am</p>
@@ -497,8 +497,11 @@ export default function App() {
                           </p>
                         </div>
                         
-                        <div className="flex flex-wrap justify-center gap-3">
-                          <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-2 rounded-full relative overflow-hidden group shadow-lg shadow-purple-500/25">
+                        <div className="flex flex-wrap gap-3">
+                          <Button 
+                            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-2 rounded-full relative overflow-hidden group shadow-lg shadow-purple-500/25"
+                            onClick={() => window.open('https://drive.google.com/file/d/1SW22D0jFGB37uY3peXaKGKNhHMCQfmjy/view?usp=drive_link', '_blank')}
+                          >
                             <span className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur" />
                             <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <Download className="w-4 h-4 mr-2 relative z-10" />
