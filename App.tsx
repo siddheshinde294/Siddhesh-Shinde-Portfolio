@@ -117,11 +117,40 @@ export default function App() {
     }
 
     try {
-      // EmailJS configuration
+      // Check if EmailJS is properly configured
       const serviceId = EMAILJS_CONFIG.SERVICE_ID;
       const notificationTemplateId = EMAILJS_CONFIG.TEMPLATE_ID;
       const autoReplyTemplateId = EMAILJS_CONFIG.AUTO_REPLY_TEMPLATE_ID;
       const publicKey = EMAILJS_CONFIG.PUBLIC_KEY;
+
+      // Check if credentials are still placeholder values
+      if (serviceId.includes('YOUR_') || notificationTemplateId.includes('YOUR_') || 
+          autoReplyTemplateId.includes('YOUR_') || publicKey.includes('YOUR_')) {
+        console.log('EmailJS not configured yet - showing demo mode');
+        
+        // Demo mode - just show success and log form data
+        console.log('Contact form submission (demo mode):', contactForm);
+        
+        // Reset form
+        setContactForm({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        
+        // Show success message
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+        
+        // Show info about EmailJS setup
+        setTimeout(() => {
+          alert('EmailJS not configured yet. Please follow the setup guide in EMAILJS_SETUP.md to enable actual email sending.');
+        }, 1000);
+        
+        return;
+      }
 
       console.log('EmailJS Config:', {
         serviceId,
