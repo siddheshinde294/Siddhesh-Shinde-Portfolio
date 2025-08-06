@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Siddhesh Jitendra Shinde
+ * Licensed under the MIT License. See LICENSE file in the project root for details.
+ */
+
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { Download, Mail, Linkedin, Github, MapPin, Phone, Home, User, FolderOpen, MessageSquare, Award, Code, Send, ArrowUp, CheckCircle } from 'lucide-react';
@@ -35,6 +40,7 @@ export default function App() {
     message: ''
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
   
@@ -122,6 +128,9 @@ export default function App() {
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Prevent double submission
+    if (isSubmitting) return;
+    
     // Validate required fields
     if (!contactForm.name || !contactForm.email || !contactForm.subject || !contactForm.message) {
       alert('Please fill in all required fields (Name, Email, Subject, Message)');
@@ -134,6 +143,10 @@ export default function App() {
       alert('Please enter a valid email address');
       return;
     }
+
+    // Start loading state
+    setIsSubmitting(true);
+    setShowSuccessMessage(false);
 
     try {
       // Check if EmailJS is properly configured
@@ -191,7 +204,8 @@ export default function App() {
         message: ''
       });
       
-      // Show success message
+      // Show success message and stop loading
+      setIsSubmitting(false);
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (error) {
@@ -216,6 +230,9 @@ export default function App() {
       }
       
       alert(errorMessage);
+    } finally {
+      // Always stop loading state
+      setIsSubmitting(false);
     }
   };
 
@@ -274,7 +291,25 @@ export default function App() {
             >
               <div className="flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">Message sent successfully!</span>
+                <span className="font-medium">Message sent successfully! I'll get back to you soon.</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Loading Message */}
+        <AnimatePresence>
+          {isSubmitting && (
+            <motion.div
+              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-4 right-4 z-50 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg shadow-lg border border-purple-400/30"
+            >
+              <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span className="font-medium">Sending your message...</span>
               </div>
             </motion.div>
           )}
@@ -795,11 +830,21 @@ export default function App() {
                                 </div>
                                 <Button 
                                   type="submit"
-                                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 relative overflow-hidden group"
+                                  disabled={isSubmitting}
+                                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                   <span className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur" />
-                                  <Send className="w-4 h-4 mr-2" />
-                                  Send Message
+                                  {isSubmitting ? (
+                                    <>
+                                      <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                      Sending...
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Send className="w-4 h-4 mr-2" />
+                                      Send Message
+                                    </>
+                                  )}
                                 </Button>
                               </form>
                             </CardContent>

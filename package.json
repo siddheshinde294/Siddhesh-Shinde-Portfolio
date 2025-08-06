@@ -1,7 +1,7 @@
 {
   "name": "siddhesh-portfolio",
   "version": "1.0.0",
-  "description": "Siddhesh Jitendra Shinde's Portfolio - A pixel-perfect conversion from Figma",
+  "description": "Siddhesh Jitendra Shinde's Professional Portfolio - A modern, responsive React portfolio showcasing skills, projects, and experience",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -73,5 +73,21 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "license": "MIT",
+  "author": "Siddhesh Jitendra Shinde <siddheshinde294@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siddheshinde294/Siddhesh-Shinde-Portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "framer-motion",
+    "emailjs",
+    "vercel"
+  ],
+  "homepage": "https://siddhesh-shinde-portfolio.vercel.app/"
 }

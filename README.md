@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing my skills, projects, and profe
 
 ## 🚀 Live Demo
 
-[View Portfolio](https://your-vercel-url.vercel.app)
+[View Portfolio](https://siddhesh-shinde-portfolio.vercel.app/)
 
 ## ✨ Features
 
@@ -45,15 +45,15 @@ A modern, responsive portfolio website showcasing my skills, projects, and profe
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/portfolio.git
-   cd portfolio
+   git clone https://github.com/siddheshinde294/Siddhesh-Shinde-Portfolio.git
+   cd Siddhesh-Shinde-Portfolio
    ```
 
 2. **Install dependencies**
@@ -62,7 +62,8 @@ A modern, responsive portfolio website showcasing my skills, projects, and profe
    ```
 
 3. **Configure EmailJS** (Optional)
-   - Follow the setup guide in `EMAILJS_SETUP.md`
+   - Create an EmailJS account at [emailjs.com](https://www.emailjs.com/)
+   - Set up email service and templates
    - Update `config/emailjs.ts` with your credentials
 
 4. **Start development server**
@@ -80,9 +81,9 @@ A modern, responsive portfolio website showcasing my skills, projects, and profe
 The contact form uses EmailJS for sending emails. To configure:
 
 1. Create an EmailJS account at [emailjs.com](https://www.emailjs.com/)
-2. Set up email service and templates
-3. Update `config/emailjs.ts` with your credentials
-4. See `EMAILJS_SETUP.md` for detailed instructions
+2. Set up email service (Gmail, Outlook, etc.)
+3. Create email templates for notification and auto-reply
+4. Update `config/emailjs.ts` with your credentials
 
 ## 🎨 Customization
 
@@ -127,6 +128,8 @@ The project can be deployed to any static hosting service:
 
 This project is open source and available under the [MIT License](LICENSE).
 
+**MIT License** - A permissive license that allows others to use, modify, and distribute your code with minimal restrictions. Perfect for portfolio projects and open source contributions.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -134,8 +137,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 Contact
 
 - **Email**: siddheshinde294@gmail.com
-- **LinkedIn**: [Your LinkedIn]
-- **GitHub**: [Your GitHub]
+- **LinkedIn**: [siddheshinde](https://www.linkedin.com/in/siddheshinde/)
+- **GitHub**: [siddheshinde294](https://github.com/siddheshinde294)
 
 ---
 

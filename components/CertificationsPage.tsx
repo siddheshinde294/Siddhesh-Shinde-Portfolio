@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Siddhesh Jitendra Shinde
+ * Licensed under the MIT License. See LICENSE file in the project root for details.
+ */
+
 import { motion } from 'framer-motion';
 import { Award, Calendar, ExternalLink, Trophy, Star } from 'lucide-react';
 import { Card, CardContent } from './ui/card';

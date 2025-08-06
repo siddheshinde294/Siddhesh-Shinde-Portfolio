@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Siddhesh Jitendra Shinde
+ * Licensed under the MIT License. See LICENSE file in the project root for details.
+ */
+
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Github, ExternalLink, Calendar, Code, Database, Globe, CheckCircle, Linkedin } from 'lucide-react';
