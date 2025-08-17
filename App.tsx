@@ -765,13 +765,10 @@ export default function App() {
     <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group w-full max-w-2xl mx-auto">
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <CardContent className="p-4 sm:p-6 md:p-8 relative z-10">
-        
         <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-purple-300 text-center md:text-left">
           Send Message
         </h3>
-
         <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6">
-          {/* Name + Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-gray-300 text-sm sm:text-base">Full Name *</Label>
@@ -797,8 +794,6 @@ export default function App() {
               />
             </div>
           </div>
-
-          {/* Email */}
           <div className="space-y-2">
             <Label htmlFor="email" className="text-gray-300 text-sm sm:text-base">Email Address *</Label>
             <Input
@@ -811,8 +806,6 @@ export default function App() {
               placeholder="your.email@example.com"
             />
           </div>
-
-          {/* Subject */}
           <div className="space-y-2">
             <Label htmlFor="subject" className="text-gray-300 text-sm sm:text-base">Subject *</Label>
             <Input
@@ -825,8 +818,6 @@ export default function App() {
               placeholder="What's this about?"
             />
           </div>
-
-          {/* Message */}
           <div className="space-y-2">
             <Label htmlFor="message" className="text-gray-300 text-sm sm:text-base">Message *</Label>
             <Textarea
@@ -839,8 +830,6 @@ export default function App() {
               placeholder="Tell me about your project or inquiry..."
             />
           </div>
-
-          {/* Button */}
           <Button 
             type="submit"
             disabled={isSubmitting}
@@ -863,100 +852,95 @@ export default function App() {
       </CardContent>
     </Card>
   </motion.div>
+
+  {/* Contact Info */}
+  <div className="space-y-6 w-full max-w-2xl mx-auto">
+    <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
+      <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <CardContent className="p-4 sm:p-6 md:p-8 space-y-6 relative z-10">
+          <h3 className="text-xl sm:text-2xl font-semibold text-purple-300 text-center md:text-left">Contact Information</h3>
+          <div className="space-y-4">
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs sm:text-sm">Email</p>
+                <a href="mailto:siddheshinde294@gmail.com" className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base">
+                  siddheshinde294@gmail.com
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs sm:text-sm">Phone</p>
+                <span className="text-white text-sm sm:text-base">+91 9322049117</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs sm:text-sm">Location</p>
+                <span className="text-white text-sm sm:text-base">Ambernath, Maharashtra, India</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs sm:text-sm">LinkedIn</p>
+                <a 
+                  href="https://www.linkedin.com/in/siddheshinde/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base"
+                >
+                  linkedin.com/in/siddheshinde
+                </a>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+
+    <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
+      <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <CardContent className="p-4 sm:p-6 md:p-8 relative z-10">
+          <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-purple-300 text-center md:text-left">Let's Connect!</h3>
+          <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 text-center md:text-left">
+            I'm always excited to discuss new opportunities, collaborations, or just have a conversation about technology and innovation. Feel free to reach out!
+          </p>
+          <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0 justify-center md:justify-start">
+            <Button
+              className="bg-[#0077B5] hover:bg-[#005885] text-white border-0 px-5 py-2 sm:px-6 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base"
+              onClick={() => window.open('https://www.linkedin.com/in/siddheshinde/', '_blank')}
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </Button>
+            <Button
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-5 py-2 sm:px-6 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base"
+              onClick={() => window.open('mailto:siddheshinde294@gmail.com', '_blank')}
+            >
+              <Mail className="w-4 h-4" />
+              <span>Gmail</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  </div>
 </div>
 
-                        
-                        {/* Contact Info */}
-                        <div className="space-y-6">
-                          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
-                            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
-                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              <CardContent className="p-8 space-y-6 relative z-10">
-                                <h3 className="text-2xl font-semibold text-purple-300">Contact Information</h3>
-                                
-                                <div className="space-y-4">
-                                  <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                      <Mail className="w-5 h-5 text-purple-400" />
-                                    </div>
-                                    <div>
-                                      <p className="text-gray-400 text-sm">Email</p>
-                                      <a href="mailto:siddheshinde294@gmail.com" className="text-white hover:text-purple-300 transition-colors">
-                                        siddheshinde294@gmail.com
-                                      </a>
-                                    </div>
-                                  </div>
-                                  
-                                  <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                      <Phone className="w-5 h-5 text-purple-400" />
-                                    </div>
-                                    <div>
-                                      <p className="text-gray-400 text-sm">Phone</p>
-                                      <span className="text-white">+91 9322049117</span>
-                                    </div>
-                                  </div>
-                                  
-                                  <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                      <MapPin className="w-5 h-5 text-purple-400" />
-                                    </div>
-                                    <div>
-                                      <p className="text-gray-400 text-sm">Location</p>
-                                      <span className="text-white">Ambernath, Maharashtra, India</span>
-                                    </div>
-                                  </div>
-                                  
-                                  <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                      <Linkedin className="w-5 h-5 text-purple-400" />
-                                    </div>
-                                    <div>
-                                      <p className="text-gray-400 text-sm">LinkedIn</p>
-                                      <a 
-                                        href="https://www.linkedin.com/in/siddheshinde/" 
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-white hover:text-purple-300 transition-colors"
-                                      >
-                                        linkedin.com/in/siddheshinde
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </motion.div>
-                          
-                          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
-                            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
-                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              <CardContent className="p-8 relative z-10">
-                                <h3 className="text-xl font-semibold mb-4 text-purple-300">Let's Connect!</h3>
-                                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                                  I'm always excited to discuss new opportunities, collaborations, or just have a conversation about technology and innovation. Feel free to reach out!
-                                </p>
-                                <div className="flex space-x-4">
-                                  <Button
-                                    className="bg-[#0077B5] hover:bg-[#005885] text-white border-0 px-6 py-2 rounded-lg flex items-center space-x-2"
-                                    onClick={() => window.open('https://www.linkedin.com/in/siddheshinde/', '_blank')}
-                                  >
-                                    <Linkedin className="w-4 h-4" />
-                                    <span>LinkedIn</span>
-                                  </Button>
-                                  <Button
-                                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-6 py-2 rounded-lg flex items-center space-x-2"
-                                    onClick={() => window.open('mailto:siddheshinde294@gmail.com', '_blank')}
-                                  >
-                                    <Mail className="w-4 h-4" />
-                                    <span>Gmail</span>
-                                  </Button>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </motion.div>
-                        </div>
-                      </div>
                     </motion.div>
                   </div>
                 </section>
