@@ -5,7 +5,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Github, /* ExternalLink */, Calendar, Code, Database, Globe, CheckCircle, Linkedin } from 'lucide-react';
+import { Github, /* ExternalLink */ Calendar, Code, Database, Globe, CheckCircle, Linkedin } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
