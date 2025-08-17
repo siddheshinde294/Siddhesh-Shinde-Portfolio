@@ -741,225 +741,227 @@ export default function App() {
                 </section>
 
                 {/* Contact Section */}
-<section id="contact" className="py-20 relative">
-  <div className="container mx-auto px-4 sm:px-6">
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="space-y-12"
-    >
-      {/* Heading */}
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-          Get In Touch
-        </h2>
-        <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
-          Ready to collaborate on your next project? Let's discuss how we can
-          work together to bring your ideas to life.
-        </p>
-      </div>
+                <section id="contact" className="py-20 relative">
+                  <div className="container mx-auto px-6">
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true }}
+                      className="space-y-12"
+                    >
+                      <div className="text-center space-y-4">
+                        <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                          Get In Touch
+                        </h2>
+                        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                          Ready to collaborate on your next project? Let's discuss how we can work together to bring your ideas to life.
+                        </p>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full px-4 sm:px-6 lg:px-0">
+  {/* Contact Form */}
+  <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
+    <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group w-full max-w-2xl mx-auto">
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <CardContent className="p-4 sm:p-6 md:p-8 relative z-10">
+        
+        <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-purple-300 text-center md:text-left">
+          Send Message
+        </h3>
 
-      {/* Grid wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        {/* Contact Form */}
-        <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
-          <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group h-full">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <CardContent className="p-6 sm:p-8 relative z-10">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-purple-300">
+        <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-6">
+          {/* Name + Phone */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-gray-300 text-sm sm:text-base">Full Name *</Label>
+              <Input
+                id="name"
+                type="text"
+                value={contactForm.name}
+                onChange={(e) => handleContactChange('name', e.target.value)}
+                required
+                className="w-full bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
+                placeholder="Enter your full name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-gray-300 text-sm sm:text-base">Phone Number</Label>
+              <Input
+                id="phone"
+                type="tel"
+                value={contactForm.phone}
+                onChange={(e) => handleContactChange('phone', e.target.value)}
+                className="w-full bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
+                placeholder="+91 9876543210"
+              />
+            </div>
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-gray-300 text-sm sm:text-base">Email Address *</Label>
+            <Input
+              id="email"
+              type="email"
+              value={contactForm.email}
+              onChange={(e) => handleContactChange('email', e.target.value)}
+              required
+              className="w-full bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          {/* Subject */}
+          <div className="space-y-2">
+            <Label htmlFor="subject" className="text-gray-300 text-sm sm:text-base">Subject *</Label>
+            <Input
+              id="subject"
+              type="text"
+              value={contactForm.subject}
+              onChange={(e) => handleContactChange('subject', e.target.value)}
+              required
+              className="w-full bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
+              placeholder="What's this about?"
+            />
+          </div>
+
+          {/* Message */}
+          <div className="space-y-2">
+            <Label htmlFor="message" className="text-gray-300 text-sm sm:text-base">Message *</Label>
+            <Textarea
+              id="message"
+              value={contactForm.message}
+              onChange={(e) => handleContactChange('message', e.target.value)}
+              required
+              rows={5}
+              className="w-full bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400 resize-none"
+              placeholder="Tell me about your project or inquiry..."
+            />
+          </div>
+
+          {/* Button */}
+          <Button 
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 relative overflow-hidden group text-sm sm:text-base rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur" />
+            {isSubmitting ? (
+              <>
+                <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Sending...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4 mr-2" />
                 Send Message
-              </h3>
-              <form onSubmit={handleContactSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-gray-300">Full Name *</Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      value={contactForm.name}
-                      onChange={(e) => handleContactChange("name", e.target.value)}
-                      required
-                      className="bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
-                      placeholder="Enter your full name"
-                    />
+              </>
+            )}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  </motion.div>
+</div>
+
+                        
+                        {/* Contact Info */}
+                        <div className="space-y-6">
+                          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
+                            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
+                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <CardContent className="p-8 space-y-6 relative z-10">
+                                <h3 className="text-2xl font-semibold text-purple-300">Contact Information</h3>
+                                
+                                <div className="space-y-4">
+                                  <div className="flex items-center space-x-4">
+                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                      <Mail className="w-5 h-5 text-purple-400" />
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-400 text-sm">Email</p>
+                                      <a href="mailto:siddheshinde294@gmail.com" className="text-white hover:text-purple-300 transition-colors">
+                                        siddheshinde294@gmail.com
+                                      </a>
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-4">
+                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                      <Phone className="w-5 h-5 text-purple-400" />
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-400 text-sm">Phone</p>
+                                      <span className="text-white">+91 9322049117</span>
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-4">
+                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                      <MapPin className="w-5 h-5 text-purple-400" />
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-400 text-sm">Location</p>
+                                      <span className="text-white">Ambernath, Maharashtra, India</span>
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-4">
+                                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                      <Linkedin className="w-5 h-5 text-purple-400" />
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-400 text-sm">LinkedIn</p>
+                                      <a 
+                                        href="https://www.linkedin.com/in/siddheshinde/" 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-white hover:text-purple-300 transition-colors"
+                                      >
+                                        linkedin.com/in/siddheshinde
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </motion.div>
+                          
+                          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
+                            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
+                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <CardContent className="p-8 relative z-10">
+                                <h3 className="text-xl font-semibold mb-4 text-purple-300">Let's Connect!</h3>
+                                <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                                  I'm always excited to discuss new opportunities, collaborations, or just have a conversation about technology and innovation. Feel free to reach out!
+                                </p>
+                                <div className="flex space-x-4">
+                                  <Button
+                                    className="bg-[#0077B5] hover:bg-[#005885] text-white border-0 px-6 py-2 rounded-lg flex items-center space-x-2"
+                                    onClick={() => window.open('https://www.linkedin.com/in/siddheshinde/', '_blank')}
+                                  >
+                                    <Linkedin className="w-4 h-4" />
+                                    <span>LinkedIn</span>
+                                  </Button>
+                                  <Button
+                                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-6 py-2 rounded-lg flex items-center space-x-2"
+                                    onClick={() => window.open('mailto:siddheshinde294@gmail.com', '_blank')}
+                                  >
+                                    <Mail className="w-4 h-4" />
+                                    <span>Gmail</span>
+                                  </Button>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-gray-300">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={contactForm.phone}
-                      onChange={(e) => handleContactChange("phone", e.target.value)}
-                      className="bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
-                      placeholder="+91 9876543210"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-300">Email Address *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={contactForm.email}
-                    onChange={(e) => handleContactChange("email", e.target.value)}
-                    required
-                    className="bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-gray-300">Subject *</Label>
-                  <Input
-                    id="subject"
-                    type="text"
-                    value={contactForm.subject}
-                    onChange={(e) => handleContactChange("subject", e.target.value)}
-                    required
-                    className="bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400"
-                    placeholder="What's this about?"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-gray-300">Message *</Label>
-                  <Textarea
-                    id="message"
-                    value={contactForm.message}
-                    onChange={(e) => handleContactChange("message", e.target.value)}
-                    required
-                    rows={5}
-                    className="bg-purple-900/20 border-purple-500/30 text-white placeholder-gray-400 focus:border-purple-400 resize-none"
-                    placeholder="Tell me about your project or inquiry..."
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur" />
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Contact Info */}
-        <div className="space-y-6">
-          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
-            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <CardContent className="p-6 sm:p-8 space-y-6 relative z-10">
-                <h3 className="text-xl sm:text-2xl font-semibold text-purple-300">Contact Information</h3>
-
-                <div className="space-y-4">
-                  {/* Email */}
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-xs sm:text-sm">Email</p>
-                      <a href="mailto:siddheshinde294@gmail.com" className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base">
-                        siddheshinde294@gmail.com
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-xs sm:text-sm">Phone</p>
-                      <span className="text-white text-sm sm:text-base">+91 9322049117</span>
-                    </div>
-                  </div>
-
-                  {/* Location */}
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-xs sm:text-sm">Location</p>
-                      <span className="text-white text-sm sm:text-base">Ambernath, Maharashtra, India</span>
-                    </div>
-                  </div>
-
-                  {/* LinkedIn */}
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                      <Linkedin className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-xs sm:text-sm">LinkedIn</p>
-                      <a
-                        href="https://www.linkedin.com/in/siddheshinde/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base break-words"
-                      >
-                        linkedin.com/in/siddheshinde
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Social Buttons */}
-          <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
-            <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <CardContent className="p-6 sm:p-8 relative z-10">
-                <h3 className="text-lg sm:text-xl font-semibold mb-4 text-purple-300">Let's Connect!</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                  I'm always excited to discuss new opportunities, collaborations, or just have a conversation about technology and innovation. Feel free to reach out!
-                </p>
-                <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
-                  <Button
-                    className="bg-[#0077B5] hover:bg-[#005885] text-white border-0 px-6 py-2 rounded-lg flex items-center justify-center space-x-2"
-                    onClick={() => window.open("https://www.linkedin.com/in/siddheshinde/", "_blank")}
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    <span>LinkedIn</span>
-                  </Button>
-                  <Button
-                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-6 py-2 rounded-lg flex items-center justify-center space-x-2"
-                    onClick={() => window.open("mailto:siddheshinde294@gmail.com", "_blank")}
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>Gmail</span>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</section>
-
+                </section>
+              </motion.div>
+            )}
 
             {currentPage === 'about' && <AboutPage />}
             {currentPage === 'skills' && <SkillsPage />}
