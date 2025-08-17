@@ -121,107 +121,109 @@ export function CertificationsPage() {
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={cert.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ 
-                    scale: 1.02, 
-                    boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)" 
-                  }}
-                >
-                  <Card className={`bg-black/40 border-purple-500/20 backdrop-blur-lg hover:border-purple-400/40 transition-all duration-300 h-full ${cert.featured ? 'ring-2 ring-purple-400/30' : ''} relative overflow-hidden group`}>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <CardContent className="p-6 relative z-10">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          {cert.featured && (
-                            <Badge className="mb-1 bg-gradient-to-r from-purple-400 to-pink-400 text-white">
-                              Featured
-                            </Badge>
-                          )}
-                          <h3 className="text-xl font-semibold text-white mb-1">{cert.title}</h3>
-                          <p className="text-purple-400 font-medium">{cert.issuer}</p>
-                        </div>
-                        <div className="flex flex-col items-end">
-                          <Badge variant="outline" className="border-purple-400/50 text-purple-300 mb-1">
-                            {cert.type}
-                          </Badge>
-                          <div className="flex items-center text-gray-400 text-sm">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {cert.date}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <p className="text-gray-300 mb-4 leading-relaxed">{cert.description}</p>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <p className="text-sm text-gray-400 mb-2">Skills Covered:</p>
-                          <div className="flex flex-wrap gap-2">
-                            {cert.skills.map((skill) => (
-                              <Badge key={skill} variant="outline" className="border-purple-400/30 text-purple-200 text-xs">
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center justify-between pt-2">
-                          <p className="text-xs text-gray-500">ID: {cert.credentialId}</p>
-                          <div className="flex gap-2">
-                            {cert.title === "IBM SkillsBuild – Data Analytics" && (
-                              <Button 
-                                size="sm" 
-                                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-4 py-2 text-xs"
-                                onClick={() => window.open('https://drive.google.com/file/d/1uqWRhhNNUlwJi5IIaDUZ642O0ynGcQ3n/view?usp=drive_link', '_blank')}
-                              >
-                                <ExternalLink className="w-3 h-3 mr-1" />
-                                View Certificate
-                              </Button>
-                            )}
-                            {cert.title === "IBM SkillsBuild – Enterprise Data Science" && (
-                              <Button 
-                                size="sm" 
-                                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 px-4 py-2 text-xs"
-                                onClick={() => window.open('https://www.credly.com/go/xReoRPmI', '_blank')}
-                              >
-                                <ExternalLink className="w-3 h-3 mr-1" />
-                                Verify Certificate
-                              </Button>
-                            )}
-                            {cert.title === "Code Unnati – SAP Program" && (
-                              <>
-                                <Button 
-                                  size="sm" 
-                                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 px-4 py-2 text-xs"
-                                  onClick={() => window.open('https://codeunnati.edunetfoundation.com/verify-certificate/CU24_5961', '_blank')}
-                                >
-                                  <ExternalLink className="w-3 h-3 mr-1" />
-                                  Verify Certificate
-                                </Button>
-                                <Button 
-                                  size="sm" 
-                                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-4 py-2 text-xs"
-                                  onClick={() => window.open('https://drive.google.com/file/d/16B4-thsUeZhqraJ-D-_eAi1Kbs7Mzg3D/view?usp=sharing', '_blank')}
-                                >
-                                  <ExternalLink className="w-3 h-3 mr-1" />
-                                  View Certificate
-                                </Button>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+  {certifications.map((cert, index) => (
+    <motion.div
+      key={cert.title}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ 
+        scale: 1.02, 
+        boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)" 
+      }}
+    >
+      <Card className={`bg-black/40 border-purple-500/20 backdrop-blur-lg hover:border-purple-400/40 transition-all duration-300 h-full ${cert.featured ? 'ring-2 ring-purple-400/30' : ''} relative overflow-hidden group`}>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {/* 🔹 FIX: responsive padding */}
+        <CardContent className="p-4 sm:p-6 md:p-8 relative z-10">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex-1">
+              {cert.featured && (
+                <Badge className="mb-3 bg-gradient-to-r from-purple-400 to-pink-400 text-white">
+                  Featured
+                </Badge>
+              )}
+              <h3 className="text-xl font-semibold text-white mb-2">{cert.title}</h3>
+              <p className="text-purple-400 font-medium">{cert.issuer}</p>
+            </div>
+            <div className="flex flex-col items-end">
+              <Badge variant="outline" className="border-purple-400/50 text-purple-300 mb-2">
+                {cert.type}
+              </Badge>
+              <div className="flex items-center text-gray-400 text-sm">
+                <Calendar className="w-4 h-4 mr-1" />
+                {cert.date}
+              </div>
             </div>
           </div>
+          
+          <p className="text-gray-300 mb-4 leading-relaxed">{cert.description}</p>
+          
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm text-gray-400 mb-2">Skills Covered:</p>
+              <div className="flex flex-wrap gap-2">
+                {cert.skills.map((skill) => (
+                  <Badge key={skill} variant="outline" className="border-purple-400/30 text-purple-200 text-xs">
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            
+            {/* 🔹 FIX: make buttons wrap & scale on small screens */}
+            <div className="flex items-center justify-between pt-2">
+              <p className="text-xs text-gray-500">ID: {cert.credentialId}</p>
+              <div className="flex flex-wrap gap-2">
+                {cert.title === "IBM SkillsBuild – Data Analytics" && (
+                  <Button 
+                    size="sm" 
+                    className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-4 py-2 text-xs"
+                    onClick={() => window.open('https://drive.google.com/file/d/1uqWRhhNNUlwJi5IIaDUZ642O0ynGcQ3n/view?usp=drive_link', '_blank')}
+                  >
+                    <ExternalLink className="w-3 h-3 mr-1" />
+                    View Certificate
+                  </Button>
+                )}
+                {cert.title === "IBM SkillsBuild – Enterprise Data Science" && (
+                  <Button 
+                    size="sm" 
+                    className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 px-4 py-2 text-xs"
+                    onClick={() => window.open('https://www.credly.com/go/xReoRPmI', '_blank')}
+                  >
+                    <ExternalLink className="w-3 h-3 mr-1" />
+                    Verify Certificate
+                  </Button>
+                )}
+                {cert.title === "Code Unnati – SAP Program" && (
+                  <>
+                    <Button 
+                      size="sm" 
+                      className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 px-4 py-2 text-xs"
+                      onClick={() => window.open('https://codeunnati.edunetfoundation.com/verify-certificate/CU24_5961', '_blank')}
+                    >
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Verify Certificate
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-4 py-2 text-xs"
+                      onClick={() => window.open('https://drive.google.com/file/d/16B4-thsUeZhqraJ-D-_eAi1Kbs7Mzg3D/view?usp=sharing', '_blank')}
+                    >
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      View Certificate
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  ))}
+</div>
 
           {/* Academic & Competition Achievements */}
           <div className="space-y-8">
