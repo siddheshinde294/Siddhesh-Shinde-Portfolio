@@ -741,7 +741,7 @@ export default function App() {
                 </section>
 
                 {/* Contact Section */}
-                <section id="contact" className="py-20 relative">
+<section id="contact" className="py-20 relative">
   <div className="container mx-auto px-4 sm:px-6">
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -959,6 +959,8 @@ export default function App() {
     </motion.div>
   </div>
 </section>
+
+
             {currentPage === 'about' && <AboutPage />}
             {currentPage === 'skills' && <SkillsPage />}
             {currentPage === 'certifications' && <CertificationsPage />}
