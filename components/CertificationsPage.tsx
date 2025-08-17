@@ -224,6 +224,7 @@ export function CertificationsPage() {
     </motion.div>
   ))}
 </div>
+</div>
 
           {/* Academic & Competition Achievements */}
           <div className="space-y-8">
