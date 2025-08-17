@@ -134,19 +134,19 @@ export function CertificationsPage() {
                 >
                   <Card className={`bg-black/40 border-purple-500/20 backdrop-blur-lg hover:border-purple-400/40 transition-all duration-300 h-full ${cert.featured ? 'ring-2 ring-purple-400/30' : ''} relative overflow-hidden group`}>
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <CardContent className="p-8 relative z-10">
-                      <div className="flex items-start justify-between mb-4">
+                    <CardContent className="p-6 relative z-10">
+                      <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           {cert.featured && (
-                            <Badge className="mb-3 bg-gradient-to-r from-purple-400 to-pink-400 text-white">
+                            <Badge className="mb-1 bg-gradient-to-r from-purple-400 to-pink-400 text-white">
                               Featured
                             </Badge>
                           )}
-                          <h3 className="text-xl font-semibold text-white mb-2">{cert.title}</h3>
+                          <h3 className="text-xl font-semibold text-white mb-1">{cert.title}</h3>
                           <p className="text-purple-400 font-medium">{cert.issuer}</p>
                         </div>
                         <div className="flex flex-col items-end">
-                          <Badge variant="outline" className="border-purple-400/50 text-purple-300 mb-2">
+                          <Badge variant="outline" className="border-purple-400/50 text-purple-300 mb-1">
                             {cert.type}
                           </Badge>
                           <div className="flex items-center text-gray-400 text-sm">
