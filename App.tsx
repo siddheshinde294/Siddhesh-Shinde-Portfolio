@@ -759,7 +759,7 @@ export default function App() {
                         </p>
                       </div>
                       
-                      <div className="grid lg:grid-cols-2 gap-12">
+                      <div className="grid md:grid-cols-2 gap-12">
                         {/* Contact Form */}
                         <motion.div whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)" }}>
                           <Card className="bg-black/40 border-purple-500/20 backdrop-blur-lg relative overflow-hidden group">

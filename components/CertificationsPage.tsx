@@ -120,7 +120,7 @@ export function CertificationsPage() {
               Professional Certifications
             </h2>
             
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={cert.title}

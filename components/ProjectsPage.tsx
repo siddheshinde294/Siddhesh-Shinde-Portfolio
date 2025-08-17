@@ -266,7 +266,7 @@ export function ProjectsPage() {
                             </div>
                           </div>
 
-                          <div className="flex flex-wrap gap-3">
+                          {/* <div className="flex flex-wrap gap-3">
                             <Button 
                               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/25"
                               onClick={() => window.open(project.demoUrl, '_blank')}
@@ -288,7 +288,7 @@ export function ProjectsPage() {
                               <CheckCircle className="w-4 h-4 mr-2" />
                               Verify Project
                             </Button>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
 
